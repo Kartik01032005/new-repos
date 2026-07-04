@@ -1,3 +1,3 @@
 # new-repos
-this is my first github repositor
+this is my first github repository
 Author - Kartik 
