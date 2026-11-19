@@ -1,0 +1,34 @@
+6. Use a dataset of customer product reviews (e.g., Amazon reviews) to classify
+
+the sentiment of each review as positive, negative, or neutral using a pre-
+trained machine learning model.
+
+from textblob import TextBlob
+
+# Sample reviews
+reviews = [
+"I love this product, it works great!",
+"Worst purchase ever. Completely useless.",
+"It is okay, not too good but not too bad.",
+"Amazing quality! Highly recommend it.",
+"Terrible, I want my money back.",
+"The product is decent for the price.",
+"Absolutely fantastic experience!",
+"Not satisfied at all, very poor quality."
+]
+
+# Function to classify sentiment
+def get_sentiment(text):
+polarity = TextBlob(text).sentiment.polarity
+if polarity > 0.1:
+return "positive"
+elif polarity < -0.1:
+return "negative"
+else:
+return "neutral"
+
+# Predict sentiments
+for review in reviews:
+print(f"Review: {review}")
+print("Predicted Sentiment:", get_sentiment(review))
+print("-" * 50)
