@@ -1,0 +1,24 @@
+5. Identify frequent item sets using the Apriori algorithm for a given
+transaction data set (use Python/R/any other tool).
+
+import pandas as pd
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori
+
+# Transaction data
+data = [
+['Milk', 'Bread', 'Eggs'],
+['Milk', 'Bread'],
+['Milk', 'Eggs'],
+['Bread', 'Eggs'],
+['Milk', 'Bread', 'Eggs']
+]
+
+# Convert to one table
+te = TransactionEncoder()
+df = pd.DataFrame(te.fit_transform(data), columns=te.columns_)
+
+# Find frequent itemsets
+result = apriori(df, min_support=0.4, use_colnames=True)
+
+print(result)
