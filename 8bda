@@ -1,0 +1,22 @@
+8. Given a dataset representing a social network (e.g., Twitter follower data),
+create a graph and perform Social Network Analysis (SNA) to find the most
+influential users using centrality measures like degree, closeness, and
+betwenness centrality. use Python
+
+import networkx as nx
+
+G = nx.DiGraph()
+
+G.add_edges_from([
+("Alice", "Bob"),
+("Alice", "Charlie"),
+("Bob", "David"),
+("Charlie", "David"),
+("David", "Eve"),
+("Eve", "Frank"),
+("Frank", "Alice")
+])
+
+print("Degree:", nx.degree_centrality(G))
+print("Closeness:", nx.closeness_centrality(G))
+print("Betweenness:", nx.betweenness_centrality(G))
