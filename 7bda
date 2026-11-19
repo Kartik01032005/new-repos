@@ -1,0 +1,17 @@
+7. Enhancing customer experience with predictive analytics and data
+mining by taking suitable business scenario
+
+# Enhancing Customer Experience
+customers = {
+"Rahul": ["Mobile", "Phone Case"],
+"Priya": ["Laptop", "Mouse"],
+"Amit": ["Mobile", "Phone Case"]
+}
+
+print("Customer Recommendations")
+
+for name, purchases in customers.items():
+if "Mobile" in purchases:
+print(name, "-> Recommended: Earphones")
+elif "Laptop" in purchases:
+print(name, "-> Recommended: Laptop Bag")
