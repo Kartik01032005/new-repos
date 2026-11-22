@@ -28,3 +28,7 @@ int main() {
 
     return 0;
 }
+
+bantu@ubantu-HP-Pro-Tower-280-G9-PCI-Desktop-PC:~$ gcc -fopenmp fibonacci.c
+ubantu@ubantu-HP-Pro-Tower-280-G9-PCI-Desktop-PC:~$ ./a.out
+fib(10) = 55
