@@ -1,24 +1,33 @@
-5. Identify frequent item sets using the Apriori algorithm for a given
-transaction data set (use Python/R/any other tool).
 
-import pandas as pd
-from mlxtend.preprocessing import TransactionEncoder
-from mlxtend.frequent_patterns import apriori
+#include <stdio.h>
+#include <mpi.h>
 
-# Transaction data
-data = [
-['Milk', 'Bread', 'Eggs'],
-['Milk', 'Bread'],
-['Milk', 'Eggs'],
-['Bread', 'Eggs'],
-['Milk', 'Bread', 'Eggs']
-]
+int main(int argc, char *argv[]) {
+    int rank, a[3], b[3]={73,2,-16}, count;
+    MPI_Status s;
 
-# Convert to one table
-te = TransactionEncoder()
-df = pd.DataFrame(te.fit_transform(data), columns=te.columns_)
+    MPI_Init(&argc,&argv);
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 
-# Find frequent itemsets
-result = apriori(df, min_support=0.4, use_colnames=True)
+    if(rank==0) {
+        MPI_Recv(a,3,MPI_INT,MPI_ANY_SOURCE,MPI_ANY_TAG,
+                 MPI_COMM_WORLD,&s);
+        MPI_Get_count(&s,MPI_INT,&count);
 
-print(result)
+        printf("status.MPI_SOURCE = %d\n",s.MPI_SOURCE);
+        printf("status.MPI_TAG = %d\n",s.MPI_TAG);
+        printf("status.MPI_ERROR = %d\n",s.MPI_ERROR);
+        printf("Receive %d data\n",count);
+
+        for(int i=0;i<count;i++)
+            printf("recv[%d] = %d\n",i,a[i]);
+    }
+    else
+        MPI_Send(b,3,MPI_INT,0,10,MPI_COMM_WORLD);
+
+    MPI_Finalize();
+    return 0;
+}
+
+mpicc send.c -o send
+mpirun -np 3 ./send
