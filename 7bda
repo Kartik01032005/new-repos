@@ -1,17 +1,22 @@
-7. Enhancing customer experience with predictive analytics and data
-mining by taking suitable business scenario
 
-# Enhancing Customer Experience
-customers = {
-"Rahul": ["Mobile", "Phone Case"],
-"Priya": ["Laptop", "Mouse"],
-"Amit": ["Mobile", "Phone Case"]
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    int rank, data;
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    if (rank == 0) {
+        data = 42;
+        printf("Process %d is broadcasting data = %d\n", rank, data);
+    }
+
+    MPI_Bcast(&data, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    printf("Process %d received data = %d\n", rank, data);
+
+    MPI_Finalize();
+    return 0;
 }
-
-print("Customer Recommendations")
-
-for name, purchases in customers.items():
-if "Mobile" in purchases:
-print(name, "-> Recommended: Earphones")
-elif "Laptop" in purchases:
-print(name, "-> Recommended: Laptop Bag")
