@@ -64,3 +64,8 @@ int main() {
     free(b);
     return 0;
 }
+
+ubantu@ubantu-HP-Pro-Tower-280-G9-PCI-Desktop-PC:~$ gcc -fopenmp mergesort.c
+ubantu@ubantu-HP-Pro-Tower-280-G9-PCI-Desktop-PC:~$ ./a.out
+Enter number of elements: 6
+Enter 6 elements: 2 9 1 5 10 4
