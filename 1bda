@@ -1,0 +1,66 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+void merge(int a[], int l, int m, int r) {
+    int t[r-l+1], i=l, j=m+1, k=0;
+
+    while(i<=m && j<=r)
+        t[k++] = (a[i]<a[j]) ? a[i++] : a[j++];
+
+    while(i<=m) t[k++]=a[i++];
+    while(j<=r) t[k++]=a[j++];
+
+    for(i=l,k=0; i<=r; i++) a[i]=t[k++];
+}
+
+void sort(int a[], int l, int r, int p) {
+    if(l<r) {
+        int m=(l+r)/2;
+
+        if(p) {
+            #pragma omp parallel sections
+            {
+                #pragma omp section
+                sort(a,l,m,1);
+
+                #pragma omp section
+                sort(a,m+1,r,1);
+            }
+        } else {
+            sort(a,l,m,0);
+            sort(a,m+1,r,0);
+        }
+
+        merge(a,l,m,r);
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter number of elements: ");
+    scanf("%d",&n);
+
+    int *a=malloc(n*sizeof(int)), *b=malloc(n*sizeof(int));
+
+    printf("Enter %d elements: ",n);
+    for(int i=0;i<n;i++)
+        scanf("%d",&a[i]), b[i]=a[i];
+
+    double s=omp_get_wtime();
+    sort(a,0,n-1,0);
+    printf("Sequential Merge Sort Time: %fseconds\n",omp_get_wtime()-s);
+
+    s=omp_get_wtime();
+    sort(b,0,n-1,1);
+    printf("Parallel Merge Sort Time: %fseconds\n",omp_get_wtime()-s);
+
+    printf("Sorted array: ");
+    for(int i=0;i<n;i++) printf("%d ",a[i]);
+
+    printf("\n");
+    free(a);
+    free(b);
+    return 0;
+}
