@@ -20,3 +20,7 @@ int main(int argc, char *argv[]) {
     MPI_Finalize();
     return 0;
 }
+
+ubantu@ubantu-HP-Pro-Tower-280-G9-PCI-Desktop-PC:~$ mpicc -g -o MPI
+broadcast.c
+ubantu@ubantu-HP-Pro-Tower-280-G9-PCI-Desktop-PC:~$ mpirun -np 2 ./MPI
